@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import web.springboot_pp.model.User;
 import web.springboot_pp.service.UserService;
@@ -33,7 +34,7 @@ public class UsersController {
 	}
 
 	@PostMapping(value="/new")
-	public String addUser(@ModelAttribute("user") User user, BindingResult result) {
+	public String addUser(@ModelAttribute("user") @Validated User user, BindingResult result) {
 		if (result.hasErrors()) {
 			return "add";
 		}
@@ -49,7 +50,7 @@ public class UsersController {
 	}
 
 	@PostMapping(value = "/edit")
-	public String editUser(@RequestParam("id") Long id, @ModelAttribute("user") User user, BindingResult result, Model model) {
+	public String editUser(@RequestParam("id") @Validated Long id, @ModelAttribute("user") User user, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("user", user);
 			return "edit";
