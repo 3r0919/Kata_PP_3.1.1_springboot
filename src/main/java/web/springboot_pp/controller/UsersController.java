@@ -23,7 +23,7 @@ public class UsersController {
 
     @GetMapping
 	public String showUsers(ModelMap model) {
-		model.addAttribute("users", userService.getAllUsers());
+		model.addAttribute("user", userService.getAllUsers());
 		return "show";
 	}
 
@@ -50,7 +50,7 @@ public class UsersController {
 	}
 
 	@PostMapping(value = "/edit")
-	public String editUser(@RequestParam("id") @Validated Long id, @ModelAttribute("user") User user, BindingResult result, Model model) {
+	public String editUser(@RequestParam("id") Long id, @ModelAttribute("user") @Validated User user, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("user", user);
 			return "edit";
